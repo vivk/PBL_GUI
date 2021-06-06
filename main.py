@@ -4,11 +4,12 @@ import tkinter.font as tkFont
 import subprocess
 from PIL import ImageTk, Image
 
-exec = 'dep/chemistry.exe'
+exec = 'chemistry.exe'
 
 root = Tk()
 root.title('Chemix')
 root.geometry('680x610')
+root.resizable(width=0, height=0)
 root.configure(background='#3E435F')
 file_path = ''
 
@@ -19,7 +20,7 @@ def set_file_path(path):
 
 
 def open_file():
-    path = askopenfilename(filetypes=[('Chemistry Files', '*.c4')])
+    path = askopenfilename(filetypes=[('Chemistry Files', '*.txt')])
     with open(path, 'r') as file:
         code = file.read()
         editor.delete('1.0', END)
@@ -29,7 +30,7 @@ def open_file():
 
 def save_as():
     if file_path == '':
-        path = asksaveasfilename(filetypes=[('Chemistry Files', '*.c4')])
+        path = asksaveasfilename(filetypes=[('Chemistry Files', '*.txt')])
     else:
         path = file_path
     with open(path, 'w') as file:
@@ -44,18 +45,11 @@ def run():
         code_output.insert('1.0', "Please Save your Code!")
         return
     code_output.delete('1.0', END)
-    # command = f'./dep/chemistry.exe \'{file_path}\''
-    # with subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True) as process:
-    #     output, error = process.communicate()
-    #     code_output.insert('1.0', process.returncode)
-    #     code_output.insert('1.0',  error)
-
     process = subprocess.run([exec, file_path], capture_output=True, text=True)
     if (process.returncode == 0):
         code_output.insert('1.0', process.stdout)
     else:
-        code_output.insert('1.0', process.stderr)
-
+        code_output.insert('1.0', process.stderr, 'warning')
 
 
 menu_bar = Menu(root)
@@ -89,6 +83,7 @@ run_button.pack()
 # Console
 code_output = Text(height=10, bg="#565C7B", fg="#CDD3EA",
                    borderwidth=0, font=fontExample)
+code_output.tag_config('warning', background="#CDD3EA", foreground="#cc0000")
 code_output.pack()
 
 root.mainloop()
