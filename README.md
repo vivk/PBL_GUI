@@ -1,8 +1,4 @@
 # Chemix
-<<<<<<< HEAD
-
-![Chemix](logo/logo.png)
-=======
 ![Chemix](Logo/logo1.png)
 
 Chemix is a DSL for Chemistry. Its main functionality is to balance chemical equations.
@@ -28,4 +24,3 @@ This is a semestrial project developed within the Technical University of Moldov
 - Mamaliga Dumitras
 - Corman Daniel
 - Trofim Iuliana
->>>>>>> 702012d4ac298ebabfc9cef132f91cc8d1fac138
